@@ -160,4 +160,9 @@ public class ParameterDeviceMachineController {
     public List <ParameterDeviceMachineEntity> getallparas(){
         return  parameterDeviceMachineService.getallparas();
     }
+
+    @GetMapping("/getDetailsfrmMachineID/{MID}")
+    public ResponseEntity<List<ParameterDeviceMachineEntity>> getDetailsFromMachineID(@PathVariable String MID){
+        return new ResponseEntity <> (parameterDeviceMachineService.getMachineDetailsFmId(MID),HttpStatus.OK);
+    }
 }

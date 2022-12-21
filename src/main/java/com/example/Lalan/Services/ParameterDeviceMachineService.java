@@ -86,6 +86,10 @@ public class ParameterDeviceMachineService {
         return parameterDeviceMachineRepo.getallparameters();
     }
 
+    public List<ParameterDeviceMachineEntity>getMachineDetailsFmId(String mID){
+        return parameterDeviceMachineRepo.getDetailsByMachineID(mID);
+    }
+
 
 
 }
