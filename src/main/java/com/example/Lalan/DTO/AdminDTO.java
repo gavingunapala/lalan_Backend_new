@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class AdminDTO {
-    private String  adminID_ad;
-    private String  productID_ad;
-    private String  batchID_ad;
-    private String  productLineID_ad;
-    private String  machineID_ad;
-    private String  parameterID_ad;
+    private  String adminid_ad;
+    private  int admin_id;
+    private  String batchid_ad;
+    private  String productLineod_ad;
+    private  String userid_ad;
+    private  String job_id_ad;
 }

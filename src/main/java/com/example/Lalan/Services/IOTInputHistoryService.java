@@ -1,11 +1,7 @@
 package com.example.Lalan.Services;
 
-import com.example.Lalan.DTO.AdminDTO;
 import com.example.Lalan.DTO.IOTInputHistoryDTO;
-import com.example.Lalan.DTO.UserRegistrationDTO;
-import com.example.Lalan.Entity.AdminEntity;
 import com.example.Lalan.Entity.IOTInputHistoryEntity;
-import com.example.Lalan.Entity.UserRegistrationEntity;
 import com.example.Lalan.Repos.IOTInputHistoryRepo;
 import com.example.Lalan.Util.VarList;
 import org.modelmapper.ModelMapper;

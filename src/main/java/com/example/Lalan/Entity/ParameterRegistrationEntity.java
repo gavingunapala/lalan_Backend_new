@@ -47,8 +47,8 @@ public class ParameterRegistrationEntity {
     private List<IOTInputProcessEntity> IOTInputEntityList;
 
     //foreign key to  admin_Control table: parameterId --> parameterID_ad
-    @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name ="parameterID_ad",referencedColumnName = "parameterId")
-    private List<AdminEntity> adminEntityList;
+//    @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name ="parameterID_ad",referencedColumnName = "parameterId")
+//    private List<AdminEntity> adminEntityList;
 
 }
