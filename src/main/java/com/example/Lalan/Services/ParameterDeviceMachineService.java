@@ -86,14 +86,10 @@ public class ParameterDeviceMachineService {
         return parameterDeviceMachineRepo.getallparameters();
     }
 
-//    public List <ParameterDeviceMachineEntity> findparametersbyid(String machine_id_pdm_1, String deviceid_pdm_1){
-//        return parameterDeviceMachineRepo.findparameters(machine_id_pdm_1, deviceid_pdm_1);
-//    }
+    public List<ParameterDeviceMachineEntity>getMachineDetailsFmId(String mID){
+        return parameterDeviceMachineRepo.getDetailsByMachineID(mID);
+    }
 
-//    public ParameterDeviceMachineDTO getAlldataFromId(String MachineID){
-//        ParameterDeviceMachineEntity machinedetails = parameterDeviceMachineRepo.getAlldataFromId(MachineID);
-//        return modelMapper.map(machinedetails,ParameterDeviceMachineDTO.class);
-//    }
 
 
 }

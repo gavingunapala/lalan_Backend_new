@@ -161,16 +161,10 @@ public class ParameterDeviceMachineController {
         return  parameterDeviceMachineService.getallparas();
     }
 
-//    @GetMapping("/findparametersbyid/{machine_id_pdm_id}/{deviceid_pdm_id}")
-//    public List <ParameterDeviceMachineEntity> findparametersbyid(@PathVariable String machine_id_pdm_id , @PathVariable String deviceid_pdm_id){
-//          return  parameterDeviceMachineService.findparametersbyid(machine_id_pdm_id,deviceid_pdm_id);
-//
-//    }
-
-//    @GetMapping("/getmachineById/{machineId}")
-//    public ParameterDeviceMachineDTO getAlldataFromId(@PathVariable String machineId){
-//       return parameterDeviceMachineService.getAlldataFromId(machineId);
-//    }
+    @GetMapping("/getDetailsfrmMachineID/{MID}")
+    public ResponseEntity<List<ParameterDeviceMachineEntity>> getDetailsFromMachineID(@PathVariable String MID){
+        return new ResponseEntity <> (parameterDeviceMachineService.getMachineDetailsFmId(MID),HttpStatus.OK);
+    }
 }
 
 
