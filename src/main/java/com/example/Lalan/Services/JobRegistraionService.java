@@ -2,6 +2,7 @@ package com.example.Lalan.Services;
 
 import com.example.Lalan.DTO.JobRegistrationDTO;
 import com.example.Lalan.Entity.JobRegistrationEntity;
+import com.example.Lalan.Entity.ParameterDeviceMachineEntity;
 import com.example.Lalan.Repos.JobRegistrationRepo;
 import com.example.Lalan.Util.VarList;
 import org.modelmapper.ModelMapper;
@@ -69,4 +70,10 @@ public class JobRegistraionService {
             return VarList.RSP_NO_DATA_FOUND;
         }
     }
+
+
+
+//        public  List <JobRegistrationEntity> getallid(String job_id){
+//        return jobRegistrationRepo.getalljobids(job_id);
+//    }
 }

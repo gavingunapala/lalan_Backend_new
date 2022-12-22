@@ -2,6 +2,8 @@ package com.example.Lalan.Controller;
 
 import com.example.Lalan.DTO.JobRegistrationDTO;
 import com.example.Lalan.DTO.ResponseDTO;
+import com.example.Lalan.Entity.JobRegistrationEntity;
+import com.example.Lalan.Entity.ParameterDeviceMachineEntity;
 import com.example.Lalan.Services.JobRegistraionService;
 import com.example.Lalan.Util.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,4 +154,13 @@ public class JobRegistrationController {
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+//    @GetMapping("/getalljobids/{job_id}")
+//    public ResponseEntity <List<JobRegistrationEntity>> getallid(@PathVariable String job_id){
+//        return new ResponseEntity<> (jobRegistraionService.getallid(job_id), HttpStatus.OK);
+//    }
+
+
+
 }

@@ -166,3 +166,5 @@ public class ParameterDeviceMachineController {
         return new ResponseEntity <> (parameterDeviceMachineService.getMachineDetailsFmId(MID),HttpStatus.OK);
     }
 }
+
+
