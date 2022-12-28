@@ -111,6 +111,7 @@ public class MachineLineTestController {
 
     @GetMapping("/getalltests")
     public List <MachineLineTestEntity> getall(){
+
         return  machineLineTestService.getall();
     }
 

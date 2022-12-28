@@ -1,10 +1,11 @@
 package com.example.Lalan.Controller;
 
-import com.example.Lalan.DTO.JobRegistrationDTO;
+
+import com.example.Lalan.DTO.ParameterDeviceMachineDTO;
 import com.example.Lalan.DTO.ResponseDTO;
-import com.example.Lalan.Entity.JobRegistrationEntity;
+import com.example.Lalan.Entity.MachineLineTestEntity;
 import com.example.Lalan.Entity.ParameterDeviceMachineEntity;
-import com.example.Lalan.Services.JobRegistraionService;
+import com.example.Lalan.Services.ParameterDeviceMachineService;
 import com.example.Lalan.Util.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,87 +16,85 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/job")
-
-public class JobRegistrationController {
+@RequestMapping("/api/v1/PDM")
+public class ParameterDeviceMachineController {
 
     @Autowired
-    private JobRegistraionService jobRegistraionService;
+    private ParameterDeviceMachineService parameterDeviceMachineService;
+
     @Autowired
     private ResponseDTO responseDTO;
-    //---------------------------------------------------------------------------------------------------------
-    //saving job details.....
-    @PostMapping(value = "/saveJob")
-    public ResponseEntity saveJob(@RequestBody JobRegistrationDTO jobRegistrationDTO){
-        try {
-            String res=jobRegistraionService.saveJob(jobRegistrationDTO);
-            if (res.equals("00")){
+
+    @PostMapping("/savePDM")
+    public ResponseEntity savePDM(@RequestBody ParameterDeviceMachineDTO parameterDeviceMachineDTO){
+
+        try{
+            String res = parameterDeviceMachineService.savePDM(parameterDeviceMachineDTO);
+            if(res.equals("00")){
                 responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Success!");
-                responseDTO.setContent(jobRegistrationDTO);
+                responseDTO.setMessage("Successfully registered!");
+                responseDTO.setContent(parameterDeviceMachineDTO);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
-            }else if(res.equals("06")) {
+            }else if(res.equals("06")){
                 responseDTO.setCode(VarList.RSP_DUPLICATED);
-                responseDTO.setMessage("User Registered!");
-                responseDTO.setContent(jobRegistrationDTO);
+                responseDTO.setMessage(" Registered");
+                responseDTO.setContent(parameterDeviceMachineDTO);
                 return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }else {
+
+            }else{
                 responseDTO.setCode(VarList.RSP_FAIL);
-                responseDTO.setMessage("Error!");
-                responseDTO.setContent(null);//employeeDTO
-                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }
-
-        }catch (Exception ex){
-            responseDTO.setCode(VarList.RSP_ERROR);
-            responseDTO.setMessage(ex.getMessage());
-            responseDTO.setContent(null);
-            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-
-        }
-    }
-    //---------------------------------------------------------------------------------------------------------
-    //Updating job details...
-    @PutMapping(value = "/updateRegisteredJob/{jobId}")
-    public ResponseEntity   updateRegisteredJob(@RequestBody JobRegistrationDTO jobRegistrationDTO){
-        try {
-            String res=jobRegistraionService.updateRegisteredJob(jobRegistrationDTO);
-            if (res.equals("00")){
-                responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Success!");
-                responseDTO.setContent(jobRegistrationDTO);
-                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
-
-            }else if(res.equals("01")) {
-                responseDTO.setCode(VarList.RSP_DUPLICATED);
-                responseDTO.setMessage("Not A Registered User");
-                responseDTO.setContent(jobRegistrationDTO);
-                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }else {
-                responseDTO.setCode(VarList.RSP_FAIL);
-                responseDTO.setMessage("Error!");
+                responseDTO.setMessage("Error Occurred");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }
 
-        }catch (Exception ex){
+            }
+        }catch(Exception ex){
             responseDTO.setCode(VarList.RSP_ERROR);
             responseDTO.setMessage(ex.getMessage());
             responseDTO.setContent(null);
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
     }
-    //-----------------------------------------------------------------------------------------------------
-    //Display registered job...
-    @GetMapping("/getAllJobs")
-    public ResponseEntity getAllJobs(){
+    //update the existing batch
+    @PutMapping(value = "/updatePDM/{paraId_PDM}")
+    public ResponseEntity updatePDM(@RequestBody ParameterDeviceMachineDTO parameterDeviceMachineDTO){
+
+        try{
+            String res = parameterDeviceMachineService.updatePDM(parameterDeviceMachineDTO);
+            if(res.equals("00")){
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Update Success!");
+                responseDTO.setContent(parameterDeviceMachineDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+            }else if(res.equals("01")){
+                responseDTO.setCode(VarList.RSP_DUPLICATED);
+                responseDTO.setMessage(" Registered state not found!");
+                responseDTO.setContent(parameterDeviceMachineDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+
+            }else{
+                responseDTO.setCode(VarList.RSP_FAIL);
+                responseDTO.setMessage("Error Occurred!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+
+            }
+        }catch(Exception ex){
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/getAllPDM")
+    public ResponseEntity getAllPDM(){
         try {
-            List<JobRegistrationDTO> jobList = jobRegistraionService.getAllJobs();
+            List<ParameterDeviceMachineDTO> PDMList = parameterDeviceMachineService.getAllPDM();
             responseDTO.setCode(VarList.RSP_SUCCESS);
-            responseDTO.setMessage("Success!");
-            responseDTO.setContent(jobList);
+            responseDTO.setMessage("getting Success!");
+            responseDTO.setContent(PDMList);
             return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
         }catch (Exception ex){
@@ -106,20 +105,18 @@ public class JobRegistrationController {
 
         }
     }
-    //--------------------------------------------------------------------------------------------------
-    //Search job details using jobId...
-    @GetMapping("/searchRegisteredJob/{jobId}")
-    public ResponseEntity searchRegisteredJob(@PathVariable String jobId){
+    @GetMapping("/searchPDM/{paraId_PDM}")
+    public ResponseEntity searchPDM(@PathVariable String paraId_PDM){
         try {
-            JobRegistrationDTO jobRegistrationDTO = jobRegistraionService.searchRegisteredJob(jobId);
-            if (jobRegistrationDTO !=null) {
+            ParameterDeviceMachineDTO parameterDeviceMachineDTO = parameterDeviceMachineService.searchPDM(paraId_PDM);
+            if (parameterDeviceMachineDTO !=null) {
                 responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Success!");
-                responseDTO.setContent(jobRegistrationDTO);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(paraId_PDM);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
             } else {
                 responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
-                responseDTO.setMessage("No User Available For this jobId");
+                responseDTO.setMessage("No batch Available For this product ID");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
             }
@@ -130,20 +127,18 @@ public class JobRegistrationController {
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    //--------------------------------------------------------------------------------------------------
-    //Delete registered job...
-    @DeleteMapping("/deleteRegisteredJob/{jobId}")
-    public ResponseEntity deleteRegisteredJob(@PathVariable String jobId){
+    @DeleteMapping("/deletePDM/{paraId_PDM}")
+    public ResponseEntity deletePDM(@PathVariable String paraId_PDM){
         try {
-            String res = jobRegistraionService.deleteRegisteredJob(jobId);
+            String res = parameterDeviceMachineService.deletePDM(paraId_PDM);
             if (res.equals("00")) {
                 responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Success!");
+                responseDTO.setMessage("Delete Success");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
             } else {
                 responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
-                responseDTO.setMessage("No User Available For this jobId");
+                responseDTO.setMessage("No Batch Available For this product id");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
             }
@@ -156,11 +151,20 @@ public class JobRegistrationController {
     }
 
 
-//    @GetMapping("/getalljobids/{job_id}")
-//    public ResponseEntity <List<JobRegistrationEntity>> getallid(@PathVariable String job_id){
-//        return new ResponseEntity<> (jobRegistraionService.getallid(job_id), HttpStatus.OK);
-//    }
+    @GetMapping("/getalltestsdevices")
+    public List <ParameterDeviceMachineEntity> getall(){
+        return  parameterDeviceMachineService.getall();
+    }
 
+    @GetMapping("/getalltestsparameters")
+    public List <ParameterDeviceMachineEntity> getallparas(){
+        return  parameterDeviceMachineService.getallparas();
+    }
 
-
+    @GetMapping("/getDetailsfrmMachineID/{MID}")
+    public ResponseEntity<List<ParameterDeviceMachineEntity>> getDetailsFromMachineID(@PathVariable String MID){
+        return new ResponseEntity <> (parameterDeviceMachineService.getMachineDetailsFmId(MID),HttpStatus.OK);
+    }
 }
+
+

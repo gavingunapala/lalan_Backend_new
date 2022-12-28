@@ -1,21 +1,24 @@
 package com.example.Lalan.Services;
 
-import com.example.Lalan.DTO.AdminDTO;
-import com.example.Lalan.Entity.AdminEntity;
 import com.example.Lalan.Repos.AdminRepo;
-import com.example.Lalan.Util.VarList;
+import com.example.Lalan.DTO.LineRegistrationDTO;
+import com.example.Lalan.DTO.ResponseDTO;
+import com.example.Lalan.Entity.LineRegistrationEntity;
+
+import com.sun.corba.se.impl.oa.poa.ActiveObjectMap;
+import org.hibernate.mapping.Value;
+
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
-
 public class AdminService {
 
     @Autowired
@@ -24,59 +27,35 @@ public class AdminService {
     @Autowired
     private ModelMapper modelMapper;
 
-    //save a admin record to the database
-    public String saveAdmin(AdminDTO adminDTO) {
-        //if the admin record is already there in the db return duplicate massage
-        if (adminRepo.existsById(adminDTO.getAdminID_ad())) {
-            return VarList.RSP_DUPLICATED;
-
-        } else {
-            //if not save a new admin record to the db
-            adminRepo.save(modelMapper.map(adminDTO, AdminEntity.class));
-            return VarList.RSP_SUCCESS;
-        }
+    // call repo query to get all batch ids when select job id
+    public List<Object[]> getallbatches(String job_id_ad) {
+        return adminRepo.getallbactchidssbyprocedure(job_id_ad);
     }
 
-    public String updateAdmin(AdminDTO adminDTO) {
-        //should be checked the admin record is already exit
-        if (adminRepo.existsById(adminDTO.getAdminID_ad())) {
-            //if the admin record is already there update the data
-            adminRepo.save(modelMapper.map(adminDTO, AdminEntity.class));
-            return VarList.RSP_SUCCESS;
-        } else {
-            // if the admin record is not already there return error
-            return VarList.RSP_NO_DATA_FOUND;
-        }
+    public List<Map<ActiveObjectMap.Key, Value>> getLineByDate(Date predicted_date) {
+        return adminRepo.getLineByDate(predicted_date);
     }
 
-    public List<AdminDTO> getAllAdmin() {
-        //find the all data in db using findAll() and return as  list
-        List<AdminEntity> adminList = adminRepo.findAll();
-        return modelMapper.map(adminList, new TypeToken<ArrayList<AdminDTO>>() {
-
-        }.getType());
+    // get Get Customer Details By Date And LineId
+    public List<Map<ActiveObjectMap.Key, Value>> GetDetailsByDateAndLineId(Date predicted_date, String LineId) {
+        return adminRepo.GetDetailsByDateAndLineId(predicted_date, LineId);
     }
 
-    public AdminDTO searchAdmin(String adminID_ad){
-        if (adminRepo.existsById(adminID_ad)){
-            AdminEntity batch = adminRepo.findById(adminID_ad).orElse(null);
-            return modelMapper.map(batch,AdminDTO.class);
-        }else {
-            return null;
-        }
+    // get Get machine Details By Date And LineId and POrder
+    public List<Map<ActiveObjectMap.Key, Value>> GetDetailsByDateAndLineIdAndPOrder(Date predicted_date, String LineId,
+            int pOrder) {
+        return adminRepo.GetDetailsByDateAndLineIdAndPOrder(predicted_date, LineId, pOrder);
     }
 
-    //delete a specific admin record by id
-    public String deleteAdmin(String admin_id){
-        //checked , the admin record already in there
-        if (adminRepo.existsById(admin_id)){
-            //if the admin record is exit delete the admin record by admin record id
-            adminRepo.deleteById(admin_id);
-            //and return a success massage
-            return VarList.RSP_SUCCESS;
-        }else {
-            //if not return an error message
-            return VarList.RSP_NO_DATA_FOUND;
-        }
+    // get Get Perameters By Date And LineId and pOrder and Machine Id
+    public List<Map<ActiveObjectMap.Key, Value>> GetDetailsByDateAndLineIdAndPOrderAndMachineId(Date predicted_date,
+            String LineId, int pOrder, String MachineId) {
+        return adminRepo.GetDetailsByDateAndLineIdAndPOrderAndMachineId(predicted_date, LineId, pOrder, MachineId);
+    }
+
+    // get values to the table
+    public List<Map<ActiveObjectMap.Key, Value>> GetValueByDevice(String Jobid, String batchid, String LineId,
+            int pOrder, String MachineId, String DeviceId, String PerId, Date Date11) {
+        return adminRepo.GetValueByDevice(Jobid, batchid, LineId, pOrder, MachineId, DeviceId, PerId, Date11);
     }
 }
