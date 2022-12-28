@@ -1,6 +1,7 @@
 package com.example.Lalan.Entity;
 
-import com.sun.istack.NotNull;
+
+import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,8 +30,10 @@ public class LineRegistrationEntity {
     private String endTime;
     private String userID_line;//foreign key
 
-    //foreign key to  admin_Control table: lineId --> productLineID_ad
-    @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name ="productLineID_ad",referencedColumnName = "lineId")
-    private List<AdminEntity> adminEntityList;
+    // //foreign key to  admin_Control table: lineId --> productLineID_ad
+    // @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
+    // @JoinColumn(name ="productLineID_ad",referencedColumnName = "lineId")
+    // private List<AdminEntity> adminEntityList;
+    @OneToMany(mappedBy = "lineid")
+    private List<AdminEntity>admincontrol;
 }
