@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+import org.apache.tomcat.jni.Time;
 import org.springframework.format.annotation.DateTimeFormat;
 
 // import java.sql.Date;
-import java.sql.Time;
+
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,7 @@ import java.util.List;
 //         ,procedureName = "sp_GetDataByDate"
 //         ,parameters = {
 //         @StoredProcedureParameter(mode = ParameterMode.IN, name = "predicted_date", type = Date.class),
-    
+
 
 // })
 @NoArgsConstructor
@@ -43,16 +44,18 @@ import java.util.List;
 
 public class AdminEntity {
 
-    // @OneToMany(mappedBy = "LineRegistration")
-    // private List<LineRegistrationEntity>LineRegistration;
 
     @Id
     private  String adminid_ad;
     private  int admin_id;
     private  String batchid_ad;
-//    private  String product_lineid_ad;
+
+    private String product_lineid_ad;
     private  String userid_ad;
     private  String job_id_ad;
+
+    private Date production_start_datetime;
+    private Date production_end_datetime;
 
    private int customer_id;
    private String customer_name;
@@ -66,14 +69,13 @@ public class AdminEntity {
    private String device_id;
 
     private String device_name_dvc_reg;
-    private Time batch_start_time;
-    private Time batch_end_time;
+    private String batch_start_time;
+    private String batch_end_time;
 
     private Date predicted_date;
 
     private int production_order;
 
-    @ManyToOne
-    private LineRegistrationEntity lineid;
+
 
 }
