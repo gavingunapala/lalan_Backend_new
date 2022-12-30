@@ -33,21 +33,11 @@ public class AdminDTO {
     private  String userid_ad;
     private  String job_id_ad;
 
-    private String production_start_datetime;
-    private String production_end_datetime;
+    private Date production_start_datetime;
+    private Date production_end_datetime;
 
-    private int customer_id;
-    private String customer_name;
 
-    private String product_id;
-    private String product_name;
-    private int count_reg_bch;
-
-    private String machine_id;
-    private String machine_name;
-    private String device_id;
-
-    private String device_name_dvc_reg;
+   
     private String batch_start_time;
     private String batch_end_time;
 

@@ -14,29 +14,7 @@ import java.sql.Time;
 @Data
 @Table(name = "dashboard_test")
 
-@NamedStoredProcedureQuery(name = "db_20221223.sp_GetDataByDate"
-        ,procedureName = "sp_GetDataByDate"
-        ,parameters = {
-        @StoredProcedureParameter(mode = ParameterMode.IN, name = "predicted_date", type = Date.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "job_id_ad", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "customer_id", type = int.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "customer_name", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "batchid_ad", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "product_id", type = String.class),
 
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "product_name", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "count_reg_bch", type = int.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "product_lineid_ad", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "machine_name", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "device_id", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "device_name_dvc_reg", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "batch_start_time", type = Time.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "batch_end_time", type = Time.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "predicted_date", type = String.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "production_order", type = int.class),
-
-
-})
 public class DashboardEntity {
 
     @Id

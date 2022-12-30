@@ -30,9 +30,9 @@ public class ProductRegistrationEntity {
 
 
     //foreign key to  status table: productId --> productID_st
-    @OneToMany(targetEntity = StatusEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name ="productID_st",referencedColumnName = "productId")
-    private List<StatusEntity> statusEntityList;
+    // @OneToMany(targetEntity = StatusEntity.class, cascade = CascadeType.ALL)
+    // @JoinColumn(name ="productID_st",referencedColumnName = "productId")
+    // private List<StatusEntity> statusEntityList;
 
     //foreign key to  admin_Control table: productId --> productID_ad
 //    @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)

@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+// import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -34,6 +34,6 @@ public class LineRegistrationEntity {
     // @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
     // @JoinColumn(name ="productLineID_ad",referencedColumnName = "lineId")
     // private List<AdminEntity> adminEntityList;
-    @OneToMany(mappedBy = "lineid")
-    private List<AdminEntity>admincontrol;
+    // @OneToMany(mappedBy = "product_lineid_ad")
+    // private List<AdminEntity>admincontrol;
 }

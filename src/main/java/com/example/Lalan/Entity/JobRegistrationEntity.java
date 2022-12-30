@@ -30,8 +30,8 @@ public class JobRegistrationEntity {
     private String userInJobId;//this is from job_reg table (foreign key)
 
 
-    @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name ="job_id_ad",referencedColumnName = "jobId")
-    private List<AdminEntity> adminEntityList;
+    // @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
+    // @JoinColumn(name ="job_id_ad",referencedColumnName = "jobId")
+    // private List<AdminEntity> adminEntityList;
 
 }
