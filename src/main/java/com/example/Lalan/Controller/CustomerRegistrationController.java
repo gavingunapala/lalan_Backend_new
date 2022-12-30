@@ -1,8 +1,11 @@
 package com.example.Lalan.Controller;
 
-import com.example.Lalan.DTO.LineRegistrationDTO;
+
+import com.example.Lalan.DTO.BatchDTO;
+import com.example.Lalan.DTO.CustomerRegistrationDTO;
 import com.example.Lalan.DTO.ResponseDTO;
-import com.example.Lalan.Services.LineRegistrationService;
+
+import com.example.Lalan.Services.CustomerRegistrationService;
 import com.example.Lalan.Util.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,87 +16,91 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/line")
-
-public class LineRegistarionController {
-
+@RequestMapping("/api/v1/customerRegistration")
+public class CustomerRegistrationController {
     @Autowired
-    private LineRegistrationService lineRegistrationService;
+    private CustomerRegistrationService customerRegistrationService;
+
     @Autowired
     private ResponseDTO responseDTO;
-    //---------------------------------------------------------------------------------------------------------
-    //saving line details.....
-    @PostMapping(value = "/saveLine")
-    public ResponseEntity saveLine(@RequestBody LineRegistrationDTO lineRegistrationDTO){
-        try {
-            String res=lineRegistrationService.saveLine(lineRegistrationDTO);
-            if (res.equals("00")){
+
+
+    @PostMapping("/saveCustomerRegistration")
+    public ResponseEntity saveCustomerRegistration(@RequestBody CustomerRegistrationDTO customerRegistrationDTO){
+
+        try{
+            String res = customerRegistrationService.saveCustomerRegistration(customerRegistrationDTO);
+            if(res.equals("00")){
                 responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Success!");
-                responseDTO.setContent(lineRegistrationDTO);
+                responseDTO.setMessage("Successfully Registered");
+                responseDTO.setContent(customerRegistrationDTO);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
-            }else if(res.equals("06")) {
+            }else if(res.equals("06")){
                 responseDTO.setCode(VarList.RSP_DUPLICATED);
-                responseDTO.setMessage("User Registered!");
-                responseDTO.setContent(lineRegistrationDTO);
+                responseDTO.setMessage("Already Registered");
+                responseDTO.setContent(customerRegistrationDTO);
                 return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }else {
+
+            }else{
                 responseDTO.setCode(VarList.RSP_FAIL);
-                responseDTO.setMessage("Error!");
-                responseDTO.setContent(null);//employeeDTO
-                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }
-
-        }catch (Exception ex){
-            responseDTO.setCode(VarList.RSP_ERROR);
-            responseDTO.setMessage(ex.getMessage());
-            responseDTO.setContent(null);
-            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-
-        }
-    }
-    //---------------------------------------------------------------------------------------------------------
-    //Updating line details...
-    @PutMapping(value = "/updateRegisteredLine/{lineId}")
-    public ResponseEntity   updateRegisteredLine(@RequestBody LineRegistrationDTO lineRegistrationDTO){
-        try {
-            String res=lineRegistrationService.updateRegisteredLine(lineRegistrationDTO);
-            if (res.equals("00")){
-                responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Success!");
-                responseDTO.setContent(lineRegistrationDTO);
-                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
-
-            }else if(res.equals("01")) {
-                responseDTO.setCode(VarList.RSP_DUPLICATED);
-                responseDTO.setMessage("Not A Registered User!");
-                responseDTO.setContent(lineRegistrationDTO);
-                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }else {
-                responseDTO.setCode(VarList.RSP_FAIL);
-                responseDTO.setMessage("Error!");
+                responseDTO.setMessage("Error Occurred");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }
 
-        }catch (Exception ex){
+            }
+        }catch(Exception ex){
             responseDTO.setCode(VarList.RSP_ERROR);
             responseDTO.setMessage(ex.getMessage());
             responseDTO.setContent(null);
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
+
+
+
     }
-    //-----------------------------------------------------------------------------------------------------
-    //Display registered lines...
-    @GetMapping("/getAllLines")
-    public ResponseEntity getAllLines(){
+
+    @PutMapping(value = "/updateCustomerRegistration/{cus_id}")
+    public ResponseEntity updateCustomerRegistration(@RequestBody CustomerRegistrationDTO customerRegistrationDTO){
+
+        try{
+            String res = customerRegistrationService.updateCustomerRegistration(customerRegistrationDTO);
+            if(res.equals("00")){
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Update Success");
+                responseDTO.setContent(customerRegistrationDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+            }else if(res.equals("01")){
+                responseDTO.setCode(VarList.RSP_DUPLICATED);
+                responseDTO.setMessage(" Registered state not found");
+                responseDTO.setContent(customerRegistrationDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+
+            }else{
+                responseDTO.setCode(VarList.RSP_FAIL);
+                responseDTO.setMessage("Error Occurred");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+
+            }
+        }catch(Exception ex){
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
+    @GetMapping("/getAllCustomerRegistration")
+    public ResponseEntity getAllCustomerRegistration(){
         try {
-            List<LineRegistrationDTO> lineList = lineRegistrationService.getAllLines();
+            List<CustomerRegistrationDTO> customerRegistrationDTOList = customerRegistrationService.getAllCustomerRegistration();
             responseDTO.setCode(VarList.RSP_SUCCESS);
-            responseDTO.setMessage("Success!");
-            responseDTO.setContent(lineList);
+            responseDTO.setMessage("getting Success");
+            responseDTO.setContent(customerRegistrationDTOList);
             return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
         }catch (Exception ex){
@@ -104,44 +111,19 @@ public class LineRegistarionController {
 
         }
     }
-    //--------------------------------------------------------------------------------------------------
-    //Search line details using lineId...
-    @GetMapping("/searchRegisteredLine/{lineId}")
-    public ResponseEntity searchRegisteredLine(@PathVariable String lineId){
+
+    @GetMapping("/searchCustomerRegistration/{cus_id}")
+    public ResponseEntity searchCustomerRegistration(@PathVariable String cus_id){
         try {
-            LineRegistrationDTO lineRegistrationDTO = lineRegistrationService.searchRegisteredLine(lineId);
-            if (lineRegistrationDTO !=null) {
+            CustomerRegistrationDTO customerRegistrationDTO = customerRegistrationService.searchCustomerRegistration(cus_id);
+            if (customerRegistrationDTO !=null) {
                 responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Success!");
-                responseDTO.setContent(lineRegistrationDTO);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(customerRegistrationDTO);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
             } else {
                 responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
-                responseDTO.setMessage("No User Available For this lineId");
-                responseDTO.setContent(null);
-                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }
-        } catch (Exception e) {
-            responseDTO.setCode(VarList.RSP_ERROR);
-            responseDTO.setMessage(e.getMessage());
-            responseDTO.setContent(e);
-            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    //--------------------------------------------------------------------------------------------------
-    //Delete registered line...
-    @DeleteMapping("/deleteRegisteredLine/{lineId}")
-    public ResponseEntity deleteRegisteredLine(@PathVariable String lineId){
-        try {
-            String res = lineRegistrationService.deleteRegisteredLine(lineId);
-            if (res.equals("00")) {
-                responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Success!");
-                responseDTO.setContent(null);
-                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
-            } else {
-                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
-                responseDTO.setMessage("No User Available For this lineId");
+                responseDTO.setMessage("No customer Available For this  ID");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
             }
@@ -153,6 +135,28 @@ public class LineRegistarionController {
         }
     }
 
+    @DeleteMapping("/deleteCustomerRegistration/{cus_id}")
+    public ResponseEntity deleteCustomerRegistration(@PathVariable String cus_id){
+        try {
+            String res = customerRegistrationService.deleteCustomerRegistration(cus_id);
+            if (res.equals("00")) {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Delete Success");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            } else {
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No Batch Available For this product id");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(e.getMessage());
+            responseDTO.setContent(e);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }

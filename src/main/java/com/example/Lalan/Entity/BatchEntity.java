@@ -23,6 +23,7 @@ public class BatchEntity {
     private String  batchName_regBch;
     private String userID_regBch;
     private String productCategory;
+    private String product_id;
 
     //foreign key to  admin_Control table: batchID_regBch --> batchID_ad
     @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)

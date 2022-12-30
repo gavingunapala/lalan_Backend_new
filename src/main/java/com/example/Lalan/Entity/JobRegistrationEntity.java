@@ -1,13 +1,15 @@
 package com.example.Lalan.Entity;
 
-import com.sun.istack.NotNull;
+
+import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Entity
+@Entity(name = "job_reg")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -26,5 +28,10 @@ public class JobRegistrationEntity {
     private String product;
     private String count;
     private String userInJobId;//this is from job_reg table (foreign key)
+
+
+    // @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
+    // @JoinColumn(name ="job_id_ad",referencedColumnName = "jobId")
+    // private List<AdminEntity> adminEntityList;
 
 }

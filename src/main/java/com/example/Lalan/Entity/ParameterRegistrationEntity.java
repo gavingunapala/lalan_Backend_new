@@ -1,6 +1,7 @@
 package com.example.Lalan.Entity;
 
-import com.sun.istack.NotNull;
+
+import com.sun.istack.internal.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,13 +43,13 @@ public class ParameterRegistrationEntity {
 
 
    //foreign key to  iot_input table: parameterID --> parameterIdInIotInput
-    @OneToMany(targetEntity = IOTInputProcessEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name ="parameterIdInIotInput",referencedColumnName = "parameterId")
-    private List<IOTInputProcessEntity> IOTInputEntityList;
+//    @OneToMany(targetEntity = IOTInputProcessEntity.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name ="parameterIdInIotInput",referencedColumnName = "parameterId")
+//    private List<IOTInputProcessEntity> IOTInputEntityList;
 
     //foreign key to  admin_Control table: parameterId --> parameterID_ad
-    @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name ="parameterID_ad",referencedColumnName = "parameterId")
-    private List<AdminEntity> adminEntityList;
+//    @OneToMany(targetEntity = AdminEntity.class, cascade = CascadeType.ALL)
+//    @JoinColumn(name ="parameterID_ad",referencedColumnName = "parameterId")
+//    private List<AdminEntity> adminEntityList;
 
 }

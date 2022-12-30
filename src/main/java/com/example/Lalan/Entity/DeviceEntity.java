@@ -26,8 +26,8 @@ public class DeviceEntity {
     private String deviceIpAddress;
 
     //foreign key to  iot_input table: deviceID_dvcReg ---> deviceIdInIotInput
-    @OneToMany(targetEntity = IOTInputProcessEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name ="deviceIdInIotInput",referencedColumnName = "deviceID_dvcReg")
-    private List<IOTInputProcessEntity> IOTInputEntityList;
+    // @OneToMany(targetEntity = IOTInputProcessEntity.class, cascade = CascadeType.ALL)
+    // @JoinColumn(name ="deviceIdInIotInput",referencedColumnName = "deviceID_dvcReg")
+    // private List<IOTInputProcessEntity> IOTInputEntityList;
 
 }
